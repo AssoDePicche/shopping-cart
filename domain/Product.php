@@ -9,12 +9,12 @@ final class Product implements ProductInterface
 {
     public function __construct(
         private readonly string $name,
-        private float $unitPrice,
+        private Price $unitPrice,
         private int $availableQuantity
     ) {
         strlen($name) === 0 && throw new InvalidArgumentException();
 
-        $unitPrice < 0 && throw new InvalidArgumentException();
+        $unitPrice->dollar < 0 && throw new InvalidArgumentException();
 
         $availableQuantity < 0 && throw new InvalidArgumentException();
     }
@@ -26,7 +26,7 @@ final class Product implements ProductInterface
 
     public function getUnitPrice(): float
     {
-        return $this->unitPrice;
+        return $this->unitPrice->dollar;
     }
 
     public function getAvailableQuantity(): int
