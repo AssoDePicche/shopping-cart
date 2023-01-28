@@ -4,8 +4,9 @@ namespace Cart;
 
 use Cart\Contract\ProductInterface;
 use InvalidArgumentException;
+use JsonSerializable;
 
-final class Product implements ProductInterface
+final class Product implements ProductInterface, JsonSerializable
 {
     public function __construct(
         private readonly string $name,
@@ -39,5 +40,14 @@ final class Product implements ProductInterface
         $this->availableQuantity - $amount < 0 && throw new InvalidArgumentException();
 
         $this->availableQuantity -= $amount;
+    }
+
+    public function jsonSerialize(): mixed
+    {
+        return [
+            'name' => $this->name,
+            'price' => $this->unitPrice->cent,
+            'available quantity' => $this->availableQuantity
+        ];
     }
 }
