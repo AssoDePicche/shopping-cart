@@ -4,14 +4,10 @@ namespace Cart;
 
 use Cart\Contract\ProductInterface;
 use InvalidArgumentException;
-use JsonSerializable;
-use Util\Contract\ArraySerializable;
-use Util\Trait\SerializableTrait;
+use Util\Serializable;
 
-final class Product implements ProductInterface, JsonSerializable, ArraySerializable
+final class Product extends Serializable implements ProductInterface
 {
-    use SerializableTrait;
-
     public function __construct(
         private readonly string $name,
         private Price $unitPrice,

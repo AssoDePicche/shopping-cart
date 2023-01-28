@@ -4,15 +4,11 @@ namespace Cart;
 
 use Cart\Contract\CartInterface;
 use Cart\Contract\CartItemInterface;
-use JsonSerializable;
 use SplObjectStorage;
-use Util\Contract\ArraySerializable;
-use Util\Trait\SerializableTrait;
+use Util\Serializable;
 
-final class Cart implements CartInterface, JsonSerializable, ArraySerializable
+final class Cart extends Serializable implements CartInterface
 {
-    use SerializableTrait;
-
     private SplObjectStorage $items;
 
     public function __construct()
