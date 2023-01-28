@@ -15,8 +15,6 @@ final class Product implements ProductInterface, JsonSerializable
     ) {
         strlen($name) === 0 && throw new InvalidArgumentException();
 
-        $unitPrice->dollar < 0 && throw new InvalidArgumentException();
-
         $availableQuantity < 0 && throw new InvalidArgumentException();
     }
 
