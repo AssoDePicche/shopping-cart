@@ -5,8 +5,9 @@ namespace Cart;
 use Cart\Contract\CartItemInterface;
 use Cart\Contract\ProductInterface;
 use InvalidArgumentException;
+use JsonSerializable;
 
-final class CartItem implements CartItemInterface
+final class CartItem implements CartItemInterface, JsonSerializable
 {
     public function __construct(
         private readonly ProductInterface $product,
@@ -48,5 +49,14 @@ final class CartItem implements CartItemInterface
         $this->quantity - $amount < 0 && throw new InvalidArgumentException();
 
         $this->quantity -= $amount;
+    }
+
+    public function jsonSerialize(): mixed
+    {
+        return [
+            'product' => $this->product,
+            'quantity' => $this->quantity,
+            'subtotal' => $this->getSubtotal()
+        ];
     }
 }
