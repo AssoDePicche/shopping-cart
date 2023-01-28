@@ -4,9 +4,10 @@ namespace Cart;
 
 use Cart\Contract\CartInterface;
 use Cart\Contract\CartItemInterface;
+use JsonSerializable;
 use SplObjectStorage;
 
-final class Cart implements CartInterface
+final class Cart implements CartInterface, JsonSerializable
 {
     private SplObjectStorage $items;
 
@@ -83,5 +84,20 @@ final class Cart implements CartInterface
         }
 
         return $size;
+    }
+
+    public function jsonSerialize(): mixed
+    {
+        $items = [];
+
+        foreach ($this->items as $item) {
+            $items[] = $item;
+        }
+
+        return [
+            'items' => $items,
+            'size' => $this->getSize(),
+            'total' => $this->getTotal()
+        ];
     }
 }
