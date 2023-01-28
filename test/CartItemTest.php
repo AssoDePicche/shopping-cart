@@ -3,6 +3,7 @@
 namespace Test;
 
 use Cart\CartItem;
+use Cart\Price;
 use Cart\Product;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
@@ -13,7 +14,7 @@ final class CartItemTest extends TestCase
     {
         $this->expectException(InvalidArgumentException::class);
 
-        $product = new Product('Book', 29.99, 12);
+        $product = new Product('Book', new Price(2999), 12);
 
         new CartItem($product, 20);
     }
@@ -22,7 +23,7 @@ final class CartItemTest extends TestCase
     {
         $this->expectException(InvalidArgumentException::class);
 
-        $product = new Product('Book', 29.99, 12);
+        $product = new Product('Book', new Price(2999), 12);
 
         new CartItem($product, 0);
     }
@@ -31,7 +32,7 @@ final class CartItemTest extends TestCase
     {
         $this->expectException(InvalidArgumentException::class);
 
-        $product = new Product('Book', 29.99, 12);
+        $product = new Product('Book', new Price(2999), 12);
 
         new CartItem($product, -10);
     }
@@ -40,7 +41,7 @@ final class CartItemTest extends TestCase
     {
         $this->expectException(InvalidArgumentException::class);
 
-        $product = new Product('Book', 29.99, 12);
+        $product = new Product('Book', new Price(2999), 12);
 
         $item = new CartItem($product, 12);
 
@@ -51,7 +52,7 @@ final class CartItemTest extends TestCase
     {
         $this->expectException(InvalidArgumentException::class);
 
-        $product = new Product('Book', 29.99, 12);
+        $product = new Product('Book', new Price(2999), 12);
 
         $item = new CartItem($product, 2);
 
@@ -62,7 +63,7 @@ final class CartItemTest extends TestCase
     {
         $this->expectException(InvalidArgumentException::class);
 
-        $product = new Product('Book', 29.99, 12);
+        $product = new Product('Book', new Price(2999), 12);
 
         $item = new CartItem($product, 2);
 
@@ -73,7 +74,7 @@ final class CartItemTest extends TestCase
     {
         $this->expectException(InvalidArgumentException::class);
 
-        $product = new Product('Book', 29.99, 12);
+        $product = new Product('Book', new Price(2999), 12);
 
         $item = new CartItem($product, 2);
 
