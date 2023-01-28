@@ -1,6 +1,6 @@
 <?php
 
-namespace Cart;
+namespace Util;
 
 final class JsonParser
 {
