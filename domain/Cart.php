@@ -6,14 +6,18 @@ use Cart\Contract\CartInterface;
 use Cart\Contract\CartItemInterface;
 use JsonSerializable;
 use SplObjectStorage;
+use Util\Contract\ArraySerializable;
+use Util\Trait\SerializableTrait;
 
-final class Cart implements CartInterface, JsonSerializable
+final class Cart implements CartInterface, JsonSerializable, ArraySerializable
 {
+    use SerializableTrait;
+
     private SplObjectStorage $items;
 
     public function __construct()
     {
-        $this->items = new SplObjectStorage();
+        $this->items = new SplObjectStorage;
     }
 
     public function add(CartItemInterface $item): void
@@ -86,7 +90,7 @@ final class Cart implements CartInterface, JsonSerializable
         return $size;
     }
 
-    public function jsonSerialize(): mixed
+    public function toArray(): array
     {
         $items = [];
 
@@ -99,5 +103,14 @@ final class Cart implements CartInterface, JsonSerializable
             'size' => $this->getSize(),
             'total' => $this->getTotal()
         ];
+    }
+
+    public function __unserialize(array $data): void
+    {
+        $this->items = new SplObjectStorage;
+
+        foreach ($data['items'] as $item) {
+            $this->items->attach($item);
+        }
     }
 }

@@ -5,9 +5,13 @@ namespace Cart;
 use Cart\Contract\ProductInterface;
 use InvalidArgumentException;
 use JsonSerializable;
+use Util\Contract\ArraySerializable;
+use Util\Trait\SerializableTrait;
 
-final class Product implements ProductInterface, JsonSerializable
+final class Product implements ProductInterface, JsonSerializable, ArraySerializable
 {
+    use SerializableTrait;
+
     public function __construct(
         private readonly string $name,
         private Price $unitPrice,
@@ -40,12 +44,21 @@ final class Product implements ProductInterface, JsonSerializable
         $this->availableQuantity -= $amount;
     }
 
-    public function jsonSerialize(): mixed
+    public function toArray(): array
     {
         return [
             'name' => $this->name,
-            'price' => $this->unitPrice->cent,
+            'price' => $this->unitPrice,
             'available quantity' => $this->availableQuantity
         ];
+    }
+
+    public function __unserialize(array $data): void
+    {
+        $this->name = $data['name'];
+
+        $this->unitPrice = $data['price'];
+
+        $this->availableQuantity = $data['available quantity'];
     }
 }
