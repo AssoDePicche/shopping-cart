@@ -29,11 +29,11 @@ final class Cart extends Serializable implements CartInterface
         $this->items->attach($item);
     }
 
-    public function remove(CartItemInterface $item, int $amount): void
+    public function remove(CartItemInterface $item, int $quantity): void
     {
         foreach ($this->items as $cartItem) {
             if ($cartItem->getProduct()->getName() === $item->getProduct()->getName()) {
-                $cartItem->changeQuantity($amount);
+                $cartItem->changeQuantity($quantity);
             }
         }
     }

@@ -6,7 +6,7 @@ interface CartInterface
 {
     public function add(CartItemInterface $item): void;
 
-    public function remove(CartItemInterface $item, int $amount): void;
+    public function remove(CartItemInterface $item, int $quantity): void;
 
     public function removeAll(CartItemInterface $item): void;
 
