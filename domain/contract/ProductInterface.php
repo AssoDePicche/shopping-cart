@@ -6,9 +6,9 @@ interface ProductInterface
 {
     public function getName(): string;
 
-    public function getUnitPrice(): float;
+    public function getPrice(): float;
 
     public function getAvailableQuantity(): int;
 
-    public function changeAvailableQuantity(int $amount): void;
+    public function changeAvailableQuantity(int $quantity): void;
 }

@@ -10,7 +10,7 @@ final class Product extends Serializable implements ProductInterface
 {
     public function __construct(
         private readonly string $name,
-        private Price $unitPrice,
+        private Price $price,
         private int $availableQuantity
     ) {
         strlen($name) === 0 && throw new InvalidArgumentException();
@@ -23,9 +23,9 @@ final class Product extends Serializable implements ProductInterface
         return $this->name;
     }
 
-    public function getUnitPrice(): float
+    public function getPrice(): float
     {
-        return $this->unitPrice->dollar;
+        return $this->price->dollar;
     }
 
     public function getAvailableQuantity(): int
@@ -33,18 +33,18 @@ final class Product extends Serializable implements ProductInterface
         return $this->availableQuantity;
     }
 
-    public function decreaseAvailableQuantity(int $amount = 1): void
+    public function changeAvailableQuantity(int $quantity): void
     {
-        $this->availableQuantity - $amount < 0 && throw new InvalidArgumentException();
+        $this->availableQuantity - $quantity < 0 && throw new InvalidArgumentException();
 
-        $this->availableQuantity -= $amount;
+        $this->availableQuantity -= $quantity;
     }
 
     public function toArray(): array
     {
         return [
             'name' => $this->name,
-            'price' => $this->unitPrice,
+            'price' => $this->price,
             'available quantity' => $this->availableQuantity
         ];
     }
@@ -53,7 +53,7 @@ final class Product extends Serializable implements ProductInterface
     {
         $this->name = $data['name'];
 
-        $this->unitPrice = $data['price'];
+        $this->price = $data['price'];
 
         $this->availableQuantity = $data['available quantity'];
     }
