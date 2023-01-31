@@ -10,5 +10,5 @@ interface ProductInterface
 
     public function getAvailableQuantity(): int;
 
-    public function decreaseAvailableQuantity(int $amount = 1): void;
+    public function changeAvailableQuantity(int $amount): void;
 }
