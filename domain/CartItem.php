@@ -15,7 +15,7 @@ final class CartItem extends Serializable implements CartItemInterface
     ) {
         $quantity <= 0 && throw new InvalidArgumentException();
 
-        $this->product->decreaseAvailableQuantity($quantity);
+        $this->product->changeAvailableQuantity($quantity);
     }
 
     public function getProduct(): ProductInterface
@@ -30,25 +30,16 @@ final class CartItem extends Serializable implements CartItemInterface
 
     public function getSubtotal(): float
     {
-        return $this->quantity * $this->product->getUnitPrice();
+        return $this->quantity * $this->product->getPrice();
     }
 
-    public function increaseQuantity(int $amount = 1): void
+    public function changeQuantity(int $quantity): void
     {
-        $amount <= 0 && throw new InvalidArgumentException();
+        $this->quantity + $quantity < 0 && throw new InvalidArgumentException();
 
-        $this->quantity + $amount > $this->product->getAvailableQuantity() && throw new InvalidArgumentException();
+        $this->quantity += $quantity;
 
-        $this->quantity += $amount;
-    }
-
-    public function decreaseQuantity(int $amount = 1): void
-    {
-        $amount <= 0 && throw new InvalidArgumentException();
-
-        $this->quantity - $amount < 0 && throw new InvalidArgumentException();
-
-        $this->quantity -= $amount;
+        $this->product->changeAvailableQuantity($quantity);
     }
 
     public function toArray(): array

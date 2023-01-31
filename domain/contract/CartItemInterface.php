@@ -10,5 +10,5 @@ interface CartItemInterface
 
     public function getSubtotal(): float;
 
-    public function changeQuantity(int $amount): void;
+    public function changeQuantity(int $quantity): void;
 }
