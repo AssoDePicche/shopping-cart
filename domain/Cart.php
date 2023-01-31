@@ -20,7 +20,7 @@ final class Cart extends Serializable implements CartInterface
     {
         foreach ($this->items as $cartItem) {
             if ($cartItem->getProduct()->getName() === $item->getProduct()->getName()) {
-                $cartItem->increaseQuantity($item->getQuantity());
+                $cartItem->changeQuantity($item->getQuantity());
 
                 return;
             }
@@ -33,7 +33,7 @@ final class Cart extends Serializable implements CartInterface
     {
         foreach ($this->items as $cartItem) {
             if ($cartItem->getProduct()->getName() === $item->getProduct()->getName()) {
-                $cartItem->decreaseQuantity($amount);
+                $cartItem->changeQuantity($amount);
             }
         }
     }
