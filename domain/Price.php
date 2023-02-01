@@ -4,19 +4,15 @@ namespace Cart;
 
 use Cart\Contract\PriceInterface;
 use InvalidArgumentException;
-use JsonSerializable;
-use Util\Contract\ArraySerializable;
-use Util\Trait\SerializableTrait;
+use Util\Serializable;
 
-final readonly class Price implements PriceInterface, JsonSerializable, ArraySerializable
+final class Price extends Serializable implements PriceInterface
 {
-    use SerializableTrait;
+    public readonly float $dollar;
 
-    public float $dollar;
+    public readonly string $formatted;
 
-    public string $formatted;
-
-    public function __construct(public int $cent)
+    public function __construct(public readonly int $cent)
     {
         $cent < 0 && throw new InvalidArgumentException();
 

@@ -3,11 +3,20 @@
 namespace Util;
 
 use Util\Contract\SerializableInterface;
-use Util\Trait\SerializableTrait;
 
 abstract class Serializable implements SerializableInterface
 {
-    use SerializableTrait;
-
     public abstract function toArray(): array;
+
+    public function jsonSerialize(): array
+    {
+        return $this->toArray();
+    }
+
+    public function __serialize(): array
+    {
+        return $this->toArray();
+    }
+
+    public abstract function __unserialize(array $data): void;
 }
