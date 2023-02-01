@@ -13,22 +13,22 @@ final class ProductTest extends TestCase
     {
         $this->expectException(InvalidArgumentException::class);
 
-        new Product('', new Price(2999), 12);
+        new Product('', Price::from(4990), 12);
     }
 
     public function test_available_quantity_smaller_than_zero_should_throw_invalid_argument_exception(): void
     {
         $this->expectException(InvalidArgumentException::class);
 
-        new Product('Book', new Price(2999), -1);
+        new Product('Kubidai Hikiukenin', Price::from(4990), -1);
     }
 
     public function test_decrease_an_amount_greater_than_available_quantity_should_throw_invalid_argument_exception(): void
     {
         $this->expectException(InvalidArgumentException::class);
 
-        $product = new Product('Book', new Price(2999), 2);
+        $product = new Product('Kubidai Hikiukenin', Price::from(4990), 2);
 
-        $product->decreaseAvailableQuantity(3);
+        $product->changeAvailableQuantity(3);
     }
 }
