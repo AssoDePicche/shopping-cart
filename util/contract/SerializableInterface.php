@@ -2,11 +2,11 @@
 
 namespace Util\Contract;
 
-interface SerializableInterface
+use JsonSerializable;
+
+interface SerializableInterface extends JsonSerializable
 {
     public function toArray(): array;
-
-    public function jsonSerialize(): array;
 
     public function __serialize(): array;
 

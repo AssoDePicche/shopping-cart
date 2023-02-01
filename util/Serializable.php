@@ -8,7 +8,7 @@ abstract class Serializable implements SerializableInterface
 {
     public abstract function toArray(): array;
 
-    public function jsonSerialize(): array
+    public function jsonSerialize(): mixed
     {
         return $this->toArray();
     }
