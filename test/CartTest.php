@@ -13,9 +13,9 @@ final class CartTest extends TestCase
 {
     public function test_cannot_repeat_products_in_cart(): void
     {
-        $product1 = new Product('Book', new Price(2999), 6);
+        $product1 = new Product('Kubidai Hikiukenin', Price::from(4990), 6);
 
-        $product2 = new Product('Book', new Price(2999), 6);
+        $product2 = new Product('Kubidai Hikiukenin', Price::from(4990), 6);
 
         $item1 = new CartItem($product1, 2);
 
@@ -34,7 +34,7 @@ final class CartTest extends TestCase
     {
         $this->expectException(InvalidArgumentException::class);
 
-        $product = new Product('Book', new Price(2999), 6);
+        $product = new Product('Kubidai Hikiukenin', Price::from(4990), 6);
 
         $item = new CartItem($product, 4);
 
@@ -47,7 +47,7 @@ final class CartTest extends TestCase
 
     public function test_remove_should_decrease_the_amount_of_product(): void
     {
-        $product = new Product('Book', new Price(2999), 6);
+        $product = new Product('Kubidai Hikiukenin', Price::from(4990), 6);
 
         $item = new CartItem($product, 4);
 
@@ -62,7 +62,7 @@ final class CartTest extends TestCase
 
     public function test_remove_all_should_remove_the_item_from_cart(): void
     {
-        $product = new Product('Book', new Price(2999), 12);
+        $product = new Product('Kubidai Hikiukenin', Price::from(4990), 12);
 
         $item = new CartItem($product, 3);
 
@@ -77,7 +77,7 @@ final class CartTest extends TestCase
 
     public function test_count_should_return_the_quantity_of_a_type_of_item(): void
     {
-        $product = new Product('Book', new Price(2999), 12);
+        $product = new Product('Kubidai Hikiukenin', Price::from(4990), 12);
 
         $item = new CartItem($product, 3);
 
@@ -90,9 +90,9 @@ final class CartTest extends TestCase
 
     public function test_clear_should_remove_all_items_from_cart(): void
     {
-        $product = new Product('Book', new Price(2999), 12);
+        $product = new Product('Kubidai Hikiukenin', Price::from(4990), 12);
 
-        $product2 = new Product('Graphic Novel', new Price(1999), 20);
+        $product2 = new Product('Shin Kubidai Hikiukenin', Price::from(4990), 20);
 
         $item = new CartItem($product, 3);
 
@@ -111,9 +111,9 @@ final class CartTest extends TestCase
 
     public function test_get_total_should_return_the_subtotal_of_all_items(): void
     {
-        $product1 = new Product('Book', new Price(1600), 5);
+        $product1 = new Product('Kubidai Hikiukenin', Price::from(4990), 5);
 
-        $product2 = new Product('Graphic Novel', new Price(1600), 5);
+        $product2 = new Product('Shin Kubidai Hikiukenin', Price::from(4990), 5);
 
         $item1 = new CartItem($product1, 4);
 
@@ -125,14 +125,14 @@ final class CartTest extends TestCase
 
         $cart->add($item2);
 
-        $this->assertEquals(96, $cart->getTotal());
+        $this->assertEquals(299.40, $cart->getTotal());
     }
 
     public function test_get_size_should_return_the_quantity_of_all_items(): void
     {
-        $product1 = new Product('Book', new Price(2999), 6);
+        $product1 = new Product('Kubidai Hikiukenin', Price::from(4990), 6);
 
-        $product2 = new Product('Graphic Novel', new Price(2999), 6);
+        $product2 = new Product('Shin Kubidai Hikiukenin', Price::from(4990), 6);
 
         $item1 = new CartItem($product1, 4);
 
