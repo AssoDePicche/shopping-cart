@@ -1,9 +1,8 @@
 {
   "autoload": {
     "psr-4": {
-      "Cart\\": "domain/",
-      "Database\\": "database/",
-      "Util\\": "util/"
+      "Cart\\": "src/cart",
+      "Util\\": "src/util"
     }
   },
   "require-dev": {
