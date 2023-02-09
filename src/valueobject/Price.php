@@ -1,10 +1,12 @@
 <?php
 
-namespace Cart;
+declare(strict_types=1);
 
-use Cart\Contract\PriceInterface;
+namespace ValueObject;
+
 use InvalidArgumentException;
 use Util\Serializable;
+use ValueObject\Contract\PriceInterface;
 
 final class Price extends Serializable implements PriceInterface
 {
