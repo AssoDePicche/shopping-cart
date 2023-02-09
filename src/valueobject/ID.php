@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace ValueObject;
 
 use Util\Serializable;
+use ValueObject\Contract\IdentifierInterface;
 
-final class ID extends Serializable
+final class ID extends Serializable implements IdentifierInterface
 {
     private readonly string $value;
 
