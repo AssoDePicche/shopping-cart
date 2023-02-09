@@ -8,6 +8,7 @@ use Cart\Contract\ProductInterface;
 use InvalidArgumentException;
 use Util\Serializable;
 use ValueObject\ID;
+use ValueObject\Price;
 
 final class Product extends Serializable implements ProductInterface
 {
