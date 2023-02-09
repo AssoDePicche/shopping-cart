@@ -6,74 +6,80 @@ namespace Cart;
 
 use Cart\Contract\CartInterface;
 use Cart\Contract\CartItemInterface;
-use SplObjectStorage;
 use Util\Serializable;
+use WeakMap;
 
 final class Cart extends Serializable implements CartInterface
 {
-    private SplObjectStorage $items;
+    private WeakMap $items;
 
     public function __construct()
     {
-        $this->items = new SplObjectStorage;
+        $this->items = new WeakMap;
     }
 
     public function add(CartItemInterface $item): void
     {
-        foreach ($this->items as $cartItem) {
-            if ($cartItem->getProduct()->getName() === $item->getProduct()->getName()) {
-                $cartItem->changeQuantity($item->getQuantity());
+        if (!$this->contains($item)) {
+            $this->items->offsetSet($item->getProduct()->getID(), $item);
 
-                return;
-            }
+            return;
         }
 
-        $this->items->attach($item);
+        $obj = $this->items->offsetGet($item->getProduct()->getID());
+
+        $obj->changeQuantity($item->getQuantity());
     }
 
     public function remove(CartItemInterface $item, int $quantity): void
     {
-        foreach ($this->items as $cartItem) {
-            if ($cartItem->getProduct()->getName() === $item->getProduct()->getName()) {
-                $quantity *= -1;
+        if (!$this->contains($item)) {
+            return;
+        }
 
-                $cartItem->changeQuantity($quantity);
-            }
+        $quantity *= -1;
+
+        $obj = $this->items->offsetGet($item->getProduct()->getID());
+
+        $obj->changeQuantity($quantity);
+
+        if ($obj->getQuantity() === 0) {
+            $this->items->offsetUnset($obj->getProduct()->getID());
         }
     }
 
     public function removeAll(CartItemInterface $item): void
     {
-        $this->items->detach($item);
+        $this->items->offsetUnset($item->getProduct()->getID());
     }
 
     public function contains(CartItemInterface $item): bool
     {
-        return $this->items->contains($item);
+        return $this->items->offsetExists($item->getProduct()->getID());
     }
 
     public function count(CartItemInterface $item): int
     {
-        foreach ($this->items as $cartItem) {
-            if ($cartItem->getProduct()->getName() === $item->getProduct()->getName()) {
-                return $cartItem->getQuantity();
-            }
+        if (!$this->contains($item)) {
+            return 0;
         }
 
-        return 0;
+        $obj = $this->items->offsetGet($item->getProduct()->getID());
+
+        return $obj->getQuantity();
     }
 
     public function clear(): void
     {
-        $this->items = new SplObjectStorage();
+        $this->items = new WeakMap;
     }
 
     public function getTotal(): float
     {
         $total = 0;
 
-        foreach ($this->items as $item) {
-            $total += $item->getSubtotal();
+        foreach ($this->items as $key => $value) {
+            $total += $value->getSubtotal();
         }
 
         return $total;
@@ -83,8 +89,8 @@ final class Cart extends Serializable implements CartInterface
     {
         $size = 0;
 
-        foreach ($this->items as $item) {
-            $size += $item->getQuantity();
+        foreach ($this->items as $key => $value) {
+            $size += $value->getQuantity();
         }
 
         return $size;
@@ -94,8 +100,8 @@ final class Cart extends Serializable implements CartInterface
     {
         $items = [];
 
-        foreach ($this->items as $item) {
-            $items[] = $item;
+        foreach ($this->items as $key => $value) {
+            $items[] = $value;
         }
 
         return [
@@ -107,10 +113,10 @@ final class Cart extends Serializable implements CartInterface
 
     public function __unserialize(array $data): void
     {
-        $this->items = new SplObjectStorage;
+        $this->items = new WeakMap;
 
-        foreach ($data['items'] as $item) {
-            $this->items->attach($item);
+        foreach ($data['items'] as $key => $value) {
+            $this->items->offsetSet($key, $value);
         }
     }
 }
