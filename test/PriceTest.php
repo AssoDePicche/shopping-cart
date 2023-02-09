@@ -2,9 +2,9 @@
 
 namespace Test;
 
-use Cart\Price;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
+use ValueObject\Price;
 
 final class PriceTest extends TestCase
 {

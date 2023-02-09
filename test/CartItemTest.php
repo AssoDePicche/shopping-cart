@@ -3,11 +3,11 @@
 namespace Test;
 
 use Cart\CartItem;
-use Cart\Price;
 use Cart\Product;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use ValueObject\ID;
+use ValueObject\Price;
 
 final class CartItemTest extends TestCase
 {

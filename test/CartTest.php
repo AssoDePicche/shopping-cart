@@ -4,23 +4,21 @@ namespace Test;
 
 use Cart\Cart;
 use Cart\CartItem;
-use Cart\Price;
 use Cart\Product;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use ValueObject\ID;
+use ValueObject\Price;
 
 final class CartTest extends TestCase
 {
     public function test_cannot_repeat_products_in_cart(): void
     {
-        $product1 = new Product(new ID, 'Kubidai Hikiukenin', Price::from(4990), 6);
+        $product = new Product(new ID, 'Kubidai Hikiukenin', Price::from(4990), 6);
 
-        $product2 = new Product(new ID, 'Kubidai Hikiukenin', Price::from(4990), 6);
+        $item1 = new CartItem($product, 2);
 
-        $item1 = new CartItem($product1, 2);
-
-        $item2 = new CartItem($product2, 2);
+        $item2 = new CartItem($product, 2);
 
         $cart = new Cart;
 
