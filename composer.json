@@ -2,7 +2,8 @@
   "autoload": {
     "psr-4": {
       "Cart\\": "src/cart",
-      "Util\\": "src/util"
+      "Util\\": "src/util",
+      "ValueObject\\": "src/valueobject"
     }
   },
   "require-dev": {
