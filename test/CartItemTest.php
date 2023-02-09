@@ -7,6 +7,7 @@ use Cart\Price;
 use Cart\Product;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
+use ValueObject\ID;
 
 final class CartItemTest extends TestCase
 {
@@ -14,7 +15,7 @@ final class CartItemTest extends TestCase
     {
         $this->expectException(InvalidArgumentException::class);
 
-        $product = new Product('Kubidai Hikiukenin', Price::from(4990), 12);
+        $product = new Product(new ID, 'Kubidai Hikiukenin', Price::from(4990), 12);
 
         new CartItem($product, 20);
     }
@@ -23,7 +24,7 @@ final class CartItemTest extends TestCase
     {
         $this->expectException(InvalidArgumentException::class);
 
-        $product = new Product('Kubidai Hikiukenin', Price::from(4990), 12);
+        $product = new Product(new ID, 'Kubidai Hikiukenin', Price::from(4990), 12);
 
         new CartItem($product, 0);
     }
@@ -32,7 +33,7 @@ final class CartItemTest extends TestCase
     {
         $this->expectException(InvalidArgumentException::class);
 
-        $product = new Product('Kubidai Hikiukenin', Price::from(4990), 12);
+        $product = new Product(new ID, 'Kubidai Hikiukenin', Price::from(4990), 12);
 
         new CartItem($product, -10);
     }
@@ -41,7 +42,7 @@ final class CartItemTest extends TestCase
     {
         $this->expectException(InvalidArgumentException::class);
 
-        $product = new Product('Kubidai Hikiukenin', Price::from(4990), 12);
+        $product = new Product(new ID, 'Kubidai Hikiukenin', Price::from(4990), 12);
 
         $item = new CartItem($product, 12);
 
@@ -52,7 +53,7 @@ final class CartItemTest extends TestCase
     {
         $this->expectException(InvalidArgumentException::class);
 
-        $product = new Product('Kubidai Hikiukenin', Price::from(4990), 12);
+        $product = new Product(new ID, 'Kubidai Hikiukenin', Price::from(4990), 12);
 
         $item = new CartItem($product, 2);
 
