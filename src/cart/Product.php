@@ -22,6 +22,11 @@ final class Product extends Serializable implements ProductInterface
         $availableQuantity < 0 && throw new InvalidArgumentException();
     }
 
+    public function getID(): ID
+    {
+        return $this->id;
+    }
+
     public function getName(): string
     {
         return $this->name;
