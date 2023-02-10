@@ -1,24 +1,24 @@
 <?php
 
-namespace Test;
+declare(strict_types=1);
 
+namespace Test\Cart;
+
+use Cart\Builder\CartItemBuilder;
+use Cart\Builder\ProductBuilder;
 use Cart\Cart;
-use Cart\CartItem;
-use Cart\Product;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
-use ValueObject\ID;
-use ValueObject\Price;
 
 final class CartTest extends TestCase
 {
     public function test_cannot_repeat_products_in_cart(): void
     {
-        $product = new Product(new ID, 'Kubidai Hikiukenin', Price::from(4990), 6);
+        $product = ProductBuilder::getProduct('Kubidai Hikiukenin', 4990, 6);
 
-        $item1 = new CartItem($product, 2);
+        $item1 = CartItemBuilder::getCartItem($product, 2);
 
-        $item2 = new CartItem($product, 2);
+        $item2 = CartItemBuilder::getCartItem($product, 2);
 
         $cart = new Cart;
 
@@ -33,9 +33,9 @@ final class CartTest extends TestCase
     {
         $this->expectException(InvalidArgumentException::class);
 
-        $product = new Product(new ID, 'Kubidai Hikiukenin', Price::from(4990), 6);
+        $product = ProductBuilder::getProduct('Kubidai Hikiukenin', 4990, 6);
 
-        $item = new CartItem($product, 4);
+        $item = CartItemBuilder::getCartItem($product, 4);
 
         $cart = new Cart;
 
@@ -46,9 +46,9 @@ final class CartTest extends TestCase
 
     public function test_remove_should_decrease_the_amount_of_product(): void
     {
-        $product = new Product(new ID, 'Kubidai Hikiukenin', Price::from(4990), 6);
+        $product = ProductBuilder::getProduct('Kubidai Hikiukenin', 4990, 6);
 
-        $item = new CartItem($product, 4);
+        $item = CartItemBuilder::getCartItem($product, 4);
 
         $cart = new Cart;
 
@@ -61,9 +61,9 @@ final class CartTest extends TestCase
 
     public function test_remove_all_should_remove_the_item_from_cart(): void
     {
-        $product = new Product(new ID, 'Kubidai Hikiukenin', Price::from(4990), 12);
+        $product = ProductBuilder::getProduct('Kubidai Hikiukenin', 4990, 12);
 
-        $item = new CartItem($product, 3);
+        $item = CartItemBuilder::getCartItem($product, 3);
 
         $cart = new Cart;
 
@@ -76,9 +76,9 @@ final class CartTest extends TestCase
 
     public function test_count_should_return_the_quantity_of_a_type_of_item(): void
     {
-        $product = new Product(new ID, 'Kubidai Hikiukenin', Price::from(4990), 12);
+        $product = ProductBuilder::getProduct('Kubidai Hikiukenin', 4990, 12);
 
-        $item = new CartItem($product, 3);
+        $item = CartItemBuilder::getCartItem($product, 3);
 
         $cart = new Cart;
 
@@ -89,13 +89,13 @@ final class CartTest extends TestCase
 
     public function test_clear_should_remove_all_items_from_cart(): void
     {
-        $product = new Product(new ID, 'Kubidai Hikiukenin', Price::from(4990), 12);
+        $product = ProductBuilder::getProduct('Kubidai Hikiukenin', 4990, 12);
 
-        $product2 = new Product(new ID, 'Shin Kubidai Hikiukenin', Price::from(4990), 20);
+        $product2 = ProductBuilder::getProduct('Shin Kubidai Hikiukenin', 4990, 20);
 
-        $item = new CartItem($product, 3);
+        $item = CartItemBuilder::getCartItem($product, 3);
 
-        $item2 = new CartItem($product2, 18);
+        $item2 = CartItemBuilder::getCartItem($product2, 18);
 
         $cart = new Cart;
 
@@ -110,13 +110,13 @@ final class CartTest extends TestCase
 
     public function test_get_total_should_return_the_subtotal_of_all_items(): void
     {
-        $product1 = new Product(new ID, 'Kubidai Hikiukenin', Price::from(4990), 5);
+        $product1 = ProductBuilder::getProduct('Kubidai Hikiukenin', 4990, 5);
 
-        $product2 = new Product(new ID, 'Shin Kubidai Hikiukenin', Price::from(4990), 5);
+        $product2 = ProductBuilder::getProduct('Shin Kubidai Hikiukenin', 4990, 5);
 
-        $item1 = new CartItem($product1, 4);
+        $item1 = CartItemBuilder::getCartItem($product1, 4);
 
-        $item2 = new CartItem($product2, 2);
+        $item2 = CartItemBuilder::getCartItem($product2, 2);
 
         $cart = new Cart;
 
@@ -129,13 +129,13 @@ final class CartTest extends TestCase
 
     public function test_get_size_should_return_the_quantity_of_all_items(): void
     {
-        $product1 = new Product(new ID, 'Kubidai Hikiukenin', Price::from(4990), 6);
+        $product1 = ProductBuilder::getProduct('Kubidai Hikiukenin', 4990, 6);
 
-        $product2 = new Product(new ID, 'Shin Kubidai Hikiukenin', Price::from(4990), 6);
+        $product2 = ProductBuilder::getProduct('Shin Kubidai Hikiukenin', 4990, 6);
 
-        $item1 = new CartItem($product1, 4);
+        $item1 =  CartItemBuilder::getCartItem($product1, 4);
 
-        $item2 = new CartItem($product2, 2);
+        $item2 =  CartItemBuilder::getCartItem($product2, 2);
 
         $cart = new Cart;
 

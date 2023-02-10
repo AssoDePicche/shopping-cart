@@ -1,6 +1,8 @@
 <?php
 
-namespace Test;
+declare(strict_types=1);
+
+namespace Test\ValueObject;
 
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
@@ -12,6 +14,6 @@ final class PriceTest extends TestCase
     {
         $this->expectException(InvalidArgumentException::class);
 
-        new Price(-1);
+        Price::from(-1);
     }
 }
