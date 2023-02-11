@@ -16,6 +16,11 @@ final class ID extends Serializable implements IdentifierInterface
         $this->value = md5(uniqid());
     }
 
+    public function __toString(): string
+    {
+        return $this->value;
+    }
+
     public function toArray(): array
     {
         return [
