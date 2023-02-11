@@ -8,5 +8,5 @@ interface ObjectStatusHandler
 {
     public function export(object $object): void;
 
-    public function import(object $object): object;
+    public function import(): mixed;
 }
