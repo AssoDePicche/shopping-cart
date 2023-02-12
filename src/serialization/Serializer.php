@@ -11,17 +11,20 @@ final class Serializer
     private string $ext;
 
     public function __construct(
-        private string $filename
+        private string $filename,
+        bool $json = false
     ) {
-        $hasExt = explode('.', $this->filename);
+        $this->filename .= ($json) ? '.json' : '.bin';
 
-        if ($hasExt[1] === false) {
-            $this->ext = 'bin';
+        $this->ext = explode('.', $this->filename)[1];
 
-            $this->filename .= '.bin';
-        } else {
-            $this->ext = $hasExt[1];
-        }
+        $directory = dirname(__DIR__, 2) . '/tmp/';
+
+        $subdirectory = ($this->ext === 'json') ? 'json/' : 'bin/';
+
+        $file = $this->filename;
+
+        $this->filename = $directory . $subdirectory . $file;
 
         $this->stream = fopen($this->filename, 'w+');
     }
