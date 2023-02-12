@@ -2,9 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Util;
+namespace Serialization;
 
-final class JsonParser
+use RuntimeException;
+
+final class JSON
 {
     public static function encode(mixed $data): string
     {
@@ -25,7 +27,7 @@ final class JsonParser
             return $json;
         }
 
-        throw new \RuntimeException(json_last_error_msg());
+        throw new RuntimeException(json_last_error_msg());
     }
 
     public static function decode(string $json): array
@@ -36,6 +38,6 @@ final class JsonParser
             return $data;
         }
 
-        throw new \RuntimeException(json_last_error_msg());
+        throw new RuntimeException(json_last_error_msg());
     }
 }

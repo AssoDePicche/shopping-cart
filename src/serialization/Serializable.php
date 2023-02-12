@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Util;
+namespace Serialization;
 
-use Util\Contract\SerializableInterface;
+use JsonSerializable;
 
-abstract class Serializable implements SerializableInterface
+abstract class Serializable implements JsonSerializable
 {
     public abstract function toArray(): array;
 

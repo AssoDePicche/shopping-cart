@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Util;
+namespace Serialization;
 
 final class Serializer
 {
@@ -15,16 +15,20 @@ final class Serializer
     ) {
         $hasExt = explode('.', $this->filename);
 
-        $this->ext = $hasExt[1] ?? 'bin';
+        if ($hasExt[1] === false) {
+            $this->ext = 'bin';
 
-        $this->filename .= '.bin';
+            $this->filename .= '.bin';
+        } else {
+            $this->ext = $hasExt[1];
+        }
 
         $this->stream = fopen($this->filename, 'w+');
     }
 
-    public function export(object $object): void
+    public function export(Serializable $object): void
     {
-        $data = ($this->ext === 'json') ? JsonParser::encode($object) : serialize($object);
+        $data = ($this->ext === 'json') ? JSON::encode($object) : serialize($object);
 
         fwrite($this->stream, $data);
     }
@@ -34,7 +38,7 @@ final class Serializer
         $data = file_get_contents($this->filename);
 
         if ($this->ext === 'json') {
-            return JsonParser::decode($data);
+            return JSON::decode($data);
         }
 
         return unserialize($data);
