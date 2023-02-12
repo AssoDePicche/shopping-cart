@@ -3,6 +3,7 @@
     "psr-4": {
       "Cart\\": "src/cart",
       "Serialization\\": "src/serialization",
+      "Util\\": "src/util",
       "ValueObject\\": "src/valueobject"
     }
   },
