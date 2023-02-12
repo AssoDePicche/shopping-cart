@@ -1,6 +1,7 @@
 {
   "autoload": {
     "psr-4": {
+      "Database\\": "src/database",
       "Cart\\": "src/cart",
       "Logger\\": "src/logger",
       "Serialization\\": "src/serialization",
