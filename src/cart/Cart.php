@@ -6,7 +6,7 @@ namespace Cart;
 
 use Cart\Contract\CartInterface;
 use Cart\Contract\CartItemInterface;
-use Util\Serializable;
+use Serialization\Serializable;
 use WeakMap;
 
 final class Cart extends Serializable implements CartInterface

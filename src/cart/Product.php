@@ -6,7 +6,7 @@ namespace Cart;
 
 use Cart\Contract\ProductInterface;
 use InvalidArgumentException;
-use Util\Serializable;
+use Serialization\Serializable;
 use ValueObject\ID;
 use ValueObject\Price;
 

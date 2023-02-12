@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace ValueObject;
 
 use InvalidArgumentException;
-use Util\Serializable;
+use Serialization\Serializable;
 use ValueObject\Contract\PriceInterface;
 
 final class Price extends Serializable implements PriceInterface

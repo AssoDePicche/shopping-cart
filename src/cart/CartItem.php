@@ -7,7 +7,7 @@ namespace Cart;
 use Cart\Contract\CartItemInterface;
 use Cart\Contract\ProductInterface;
 use InvalidArgumentException;
-use Util\Serializable;
+use Serialization\Serializable;
 
 final class CartItem extends Serializable implements CartItemInterface
 {

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace ValueObject;
 
-use Util\Serializable;
+use Serialization\Serializable;
 use ValueObject\Contract\IdentifierInterface;
 
 final class ID extends Serializable implements IdentifierInterface
