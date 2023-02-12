@@ -2,7 +2,7 @@
   "autoload": {
     "psr-4": {
       "Cart\\": "src/cart",
-      "Util\\": "src/util",
+      "Serialization\\": "src/serialization",
       "ValueObject\\": "src/valueobject"
     }
   },
