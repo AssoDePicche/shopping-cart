@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace Database\Model;
 
+use Database\Model\Contract\ModelInterface;
 use PDO;
 use PDOStatement;
 
-final class Model
+final class Model implements ModelInterface
 {
     protected PDOStatement $statement;
 
     public function __construct(
-        protected readonly PDO $connection,
-
+        protected readonly PDO $connection
     ) {
     }
 
