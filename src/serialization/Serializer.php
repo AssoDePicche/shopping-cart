@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Serialization;
 
+use Logger\Logger;
+use RuntimeException;
+
 final class Serializer
 {
     private mixed $stream;
@@ -31,9 +34,13 @@ final class Serializer
 
     public function export(Serializable $object): void
     {
-        $data = ($this->ext === 'json') ? JSON::encode($object) : serialize($object);
+        try {
+            $data = ($this->ext === 'json') ? JSON::encode($object) : serialize($object);
 
-        fwrite($this->stream, $data);
+            fwrite($this->stream, $data);
+        } catch (RuntimeException $exception) {
+            Logger::log($exception->getMessage(), Logger::ERROR);
+        }
     }
 
     public function import(): mixed
@@ -41,7 +48,11 @@ final class Serializer
         $data = file_get_contents($this->filename);
 
         if ($this->ext === 'json') {
-            return JSON::decode($data);
+            try {
+                return JSON::decode($data);
+            } catch (RuntimeException $exception) {
+                Logger::log($exception->getMessage(), Logger::ERROR);
+            }
         }
 
         return unserialize($data);
