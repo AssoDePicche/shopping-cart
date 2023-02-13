@@ -13,9 +13,6 @@ abstract class JsonRepository
 
     public function __construct()
     {
-        $this->serializer = new Serializer(
-            (new ReflectionClass($this))->getShortName(),
-            true
-        );
+        $this->serializer = new Serializer((new ReflectionClass($this))->getShortName(), true);
     }
 }
