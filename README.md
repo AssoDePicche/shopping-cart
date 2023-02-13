@@ -5,12 +5,12 @@ A simple shopping cart written in PHP with basic features. The focus of this pro
 ## Features
 
 - **Logging:** you can easily track the status of the entire application.
+- **Database integration:** you can retrieve data from your database and map to Product objects with [SqlRepository](src/database/repository/SqlRepository.php) abstract class and [ProductBuilder](src/cart/builder/ProductBuilder.php) class.
 - **Object serialization:** you can save the current state of the cart as well as the item or product in a json or in a binary file.
 - **Value objects:** it is easy to adapt the module to your business model.
 
 ## Future Features
 
-- **Database integration:** I am planning to add support for saving the cart state in databases.
 - **Checkout integration:** I also plan to add support for payment services.
 
 ## Composer Commands
