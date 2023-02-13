@@ -11,9 +11,14 @@ final class ID extends Serializable implements IdentifierInterface
 {
     private readonly string $value;
 
-    public function __construct()
+    public function __construct(string $id = null)
     {
-        $this->value = md5(uniqid());
+        $this->value = $id ?? md5(uniqid());
+    }
+
+    public static function from(string $id): self
+    {
+        return new ID($id);
     }
 
     public function __toString(): string
