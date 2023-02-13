@@ -10,7 +10,7 @@ use Cart\Contract\ProductInterface;
 
 final class CartItemBuilder
 {
-    public static function getCartItem(ProductInterface $item, int $quantity): CartItemInterface
+    public static function build(ProductInterface $item, int $quantity): CartItemInterface
     {
         return new CartItem($item, $quantity);
     }
