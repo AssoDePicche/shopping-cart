@@ -32,7 +32,7 @@ final class CartItem extends Serializable implements CartItemInterface
 
     public function getSubtotal(): float
     {
-        return $this->quantity * $this->product->getPrice();
+        return $this->quantity * $this->product->getPrice()->dollar;
     }
 
     public function changeQuantity(int $quantity): void
