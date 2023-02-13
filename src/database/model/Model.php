@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Database\Model;
 
+use Database\Builder\Contract\SqlQueryBuilder;
 use PDO;
 use PDOStatement;
 
@@ -12,17 +13,15 @@ abstract class Model
     protected PDOStatement $statement;
 
     public function __construct(
-        protected readonly PDO $connection
+        protected readonly PDO $connection,
+        protected readonly SqlQueryBuilder $queryBuilder
     ) {
     }
 
-    public function prepare(string $sql): void
+    public function query(string $sql, array $params = []): bool
     {
         $this->statement = $this->connection->prepare($sql);
-    }
 
-    public function execute(array $params = null): bool
-    {
         return $this->statement->execute($params);
     }
 
@@ -33,8 +32,5 @@ abstract class Model
 
     abstract function fetch(): object|bool;
 
-    public function fetchAll(): array
-    {
-        return $this->statement->fetchAll();
-    }
+    abstract function fetchAll(): array;
 }
