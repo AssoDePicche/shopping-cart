@@ -11,7 +11,7 @@ use ValueObject\Price;
 
 final class ProductBuilder
 {
-    public static function getProduct(string $name, int $cent, int $availableQuantity): ProductInterface
+    public static function build(string $name, int $cent, int $availableQuantity): ProductInterface
     {
         return new Product(
             new ID,
