@@ -4,17 +4,16 @@ declare(strict_types=1);
 
 namespace Database\Model;
 
-use Database\Builder\Contract\SqlQueryBuilder;
 use PDO;
 use PDOStatement;
 
-abstract class Model
+final class Model
 {
     protected PDOStatement $statement;
 
     public function __construct(
         protected readonly PDO $connection,
-        protected readonly SqlQueryBuilder $queryBuilder
+
     ) {
     }
 
@@ -30,7 +29,17 @@ abstract class Model
         return $this->statement->rowCount();
     }
 
-    abstract function fetch(): object|bool;
+    public function fetch(string $sql, array $params = []): object|bool
+    {
+        $this->query($sql, $params);
 
-    abstract function fetchAll(): array;
+        return $this->statement->fetch();
+    }
+
+    public function fetchAll(string $sql, array $params = []): array
+    {
+        $this->query($sql, $params);
+
+        return $this->statement->fetchAll();
+    }
 }
