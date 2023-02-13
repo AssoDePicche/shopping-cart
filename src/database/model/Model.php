@@ -9,10 +9,10 @@ use PDOStatement;
 
 abstract class Model
 {
-    private ?PDOStatement $statement;
+    protected PDOStatement $statement;
 
     public function __construct(
-        private readonly PDO $connection
+        protected readonly PDO $connection
     ) {
     }
 
@@ -31,10 +31,7 @@ abstract class Model
         return $this->statement->rowCount();
     }
 
-    public function fetch(string $class = null): object|bool
-    {
-        return $this->statement->fetchObject($class);
-    }
+    abstract function fetch(): object|bool;
 
     public function fetchAll(): array
     {
