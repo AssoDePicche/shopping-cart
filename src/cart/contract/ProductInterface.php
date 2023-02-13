@@ -3,6 +3,7 @@
 namespace Cart\Contract;
 
 use ValueObject\ID;
+use ValueObject\Price;
 
 interface ProductInterface
 {
@@ -10,7 +11,7 @@ interface ProductInterface
 
     public function getName(): string;
 
-    public function getPrice(): float;
+    public function getPrice(): Price;
 
     public function getAvailableQuantity(): int;
 

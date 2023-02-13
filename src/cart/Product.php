@@ -33,9 +33,9 @@ final class Product extends Serializable implements ProductInterface
         return $this->name;
     }
 
-    public function getPrice(): float
+    public function getPrice(): Price
     {
-        return $this->price->dollar;
+        return $this->price;
     }
 
     public function getAvailableQuantity(): int
