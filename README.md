@@ -17,4 +17,8 @@ A simple shopping cart written in PHP with basic features. The focus of this pro
 
 - **composer run tests:** Run all the tests in test directory.
 
-**Project Status:** In Development
+## How to Install
+
+```bash
+git clone git@github.com:AssoDePicche/shopping-cart.git
+```
